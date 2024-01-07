@@ -14,7 +14,7 @@ function handleClick(e) {
 
     switch (e.target.id) {
         case "clear":
-            console.log("clear");
+            clearDisplay();
             break;
         case "negation":
             console.log("neg");
@@ -44,7 +44,7 @@ function handleValueChange(value) {
         return;
     }
     
-    if (displayVal === "0") {
+    if (displayVal === "0" && value !== ".") {
         displayVal = value;
     } else {
         displayVal += value;
@@ -55,4 +55,9 @@ function handleValueChange(value) {
 
 function updateDisplayValue() {
     display.innerText = displayVal;
+}
+
+function clearDisplay() {
+    displayVal = "0";
+    updateDisplayValue();
 }
