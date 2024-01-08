@@ -83,6 +83,10 @@ body {
     margin-left: 10px;
 }
 
+.btn--disabled {
+    cursor: not-allowed;
+}
+
 .btn__secondary {
     background-color: white;
     color: #000;

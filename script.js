@@ -40,23 +40,27 @@ function handleValueBtn(value) {
         return;
     }
 
+    if (resetDisplayVal) {
+        clearDisplay();
+        resetDisplayVal = false;
+    }
+
     if (value === "." && displayVal.indexOf(value) !== -1) {
         return;
     }
 
-    if (resetDisplayVal) {
-        displayVal = "0";
-        resetDisplayVal = false;
-    }
-
-    if (displayVal.length === 7) {
-        return;
-    }
+    // if (displayVal.length === 7) {
+    //     return;
+    // }
     
     if (displayVal === "0" && value !== ".") {
         displayVal = value;
     } else {
         displayVal += value;
+
+        if (value === ".") {
+            disableDecimalBtn();
+        }
     }
 
     updateDisplay();
@@ -67,7 +71,6 @@ function updateDisplay() {
 }
 
 function handleClearBtn() {
-    toggleBtnHighlight();
     currVal = "0";
     clearOperator();
     clearDisplay();
@@ -75,13 +78,15 @@ function handleClearBtn() {
 }
 
 function clearDisplay() {
+    enableDecimalBtn();
     displayVal = "0";
     updateDisplay();
 }
 
 function handleOperationBtn(operation) {
     resetDisplayVal = true;
-    
+    enableDecimalBtn();
+
     if (operator) {
         operate(currVal, displayVal, operator);
         clearOperator();
@@ -155,7 +160,7 @@ function clearOperator() {
 }
 
 function add(firstVal, secondVal) {
-    return round(firstVal + secondVal)
+    return round(firstVal + secondVal);
 }
 
 function subtract(firstVal, secondVal) {
@@ -175,5 +180,16 @@ function divide(firstVal, secondVal) {
 }
 
 function round(value) {
-    return Math.round(value * 10000000) / 10000000;
+    // return Math.round(value * 10000000) / 10000000;
+    return value.toString();
+}
+
+function disableDecimalBtn() {
+    const decimalBtn = document.getElementById("decimal");
+    decimalBtn.classList.add("btn--disabled");
+}
+
+function enableDecimalBtn() {
+    const decimalBtn = document.getElementById("decimal");
+    decimalBtn.classList.remove("btn--disabled");
 }
