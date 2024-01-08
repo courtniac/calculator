@@ -48,6 +48,10 @@ function handleValueBtn(value) {
         displayVal = "0";
         resetDisplayVal = false;
     }
+
+    if (displayVal.length === 7) {
+        return;
+    }
     
     if (displayVal === "0" && value !== ".") {
         displayVal = value;
@@ -120,7 +124,7 @@ function toggleBtnHighlight() {
 }
 
 function handleNegateBtn() {
-    let value = parseFloat(displayVal) * -1;
+    let value = round(parseFloat(displayVal) * -1);
 
     if (value === 0) {
         return;
@@ -133,7 +137,7 @@ function handleNegateBtn() {
 }
 
 function handlePercentBtn() {
-    let value = parseFloat(displayVal) / 100;
+    let value = round(parseFloat(displayVal) / 100);
 
     if (value === 0) {
         return;
@@ -151,17 +155,21 @@ function clearOperator() {
 }
 
 function add(firstVal, secondVal) {
-    return firstVal + secondVal;
+    return round(firstVal + secondVal)
 }
 
 function subtract(firstVal, secondVal) {
-    return firstVal - secondVal;
+    return round(firstVal - secondVal);
 }
 
 function multiply(firstVal, secondVal) {
-    return firstVal * secondVal;
+    return round(firstVal * secondVal);
 }
 
 function divide(firstVal, secondVal) {
-    return firstVal / secondVal;
+    return round(firstVal / secondVal);
+}
+
+function round(value) {
+    return Math.round(value * 10000000) / 10000000;
 }
