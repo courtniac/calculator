@@ -78,7 +78,7 @@ function handleOperationBtn(operation) {
     bClearDisplay = true;
     
     if (operator) {
-        calculate(currVal, displayVal, operator);
+        operate(currVal, displayVal, operator);
         clearOperator();
     }
 
@@ -89,22 +89,22 @@ function handleOperationBtn(operation) {
     }
 }
 
-function calculate(firstVal, secondVal, operation) {
+function operate(firstVal, secondVal, operation) {
     firstVal = parseFloat(firstVal);
     secondVal = parseFloat(secondVal);
 
     switch (operation) {
         case "add":
-            displayVal = firstVal + secondVal;
+            displayVal = add(firstVal, secondVal);
             break;
         case "subtract":
-            displayVal = firstVal - secondVal;
+            displayVal = subtract(firstVal, secondVal);
             break;
         case "multiply":
-            displayVal = firstVal * secondVal;
+            displayVal = multiply(firstVal, secondVal);
             break;
         case "divide":
-            displayVal = firstVal / secondVal;
+            displayVal = divide(firstVal, secondVal);
             break;
     }
 
@@ -145,4 +145,20 @@ function handlePercentBtn() {
 function clearOperator() {
     toggleBtnHighlight();
     operator = null;
+}
+
+function add(firstVal, secondVal) {
+    return firstVal + secondVal;
+}
+
+function subtract(firstVal, secondVal) {
+    return firstVal - secondVal;
+}
+
+function multiply(firstVal, secondVal) {
+    return firstVal * secondVal;
+}
+
+function divide(firstVal, secondVal) {
+    return firstVal / secondVal;
 }
