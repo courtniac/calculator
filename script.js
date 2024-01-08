@@ -21,7 +21,7 @@ function handleClick(e) {
             handleClearBtn();
             break;
         case "negation":
-            console.log("neg");
+            handleNegateBtn();
             break;
         case "percent":
             console.log("percent");
@@ -117,4 +117,15 @@ function calculate(firstVal, secondVal, operation) {
 function toggleBtnHighlight(operation) {
     const operationBtn = document.getElementById(operation);
     operationBtn.classList.toggle("btn__operator--highlight");
+}
+
+function handleNegateBtn() {
+    let value = parseFloat(displayVal) * -1;
+
+    if (value === 0) {
+        return;
+    }
+
+    displayVal = value.toString();
+    updateDisplay();
 }
