@@ -3,7 +3,7 @@ const display = document.getElementsByClassName("displayValue")[0];
 let currVal = "0";
 let displayVal = "0";
 let operator;
-let bClearDisplay = false;
+let resetDisplayVal = false;
 
 for (let button of buttons) {
     button.addEventListener("click", (e) => handleClick(e));
@@ -44,9 +44,9 @@ function handleValueBtn(value) {
         return;
     }
 
-    if (bClearDisplay) {
-        clearDisplay();
-        bClearDisplay = false;
+    if (resetDisplayVal) {
+        displayVal = "0";
+        resetDisplayVal = false;
     }
     
     if (displayVal === "0" && value !== ".") {
@@ -67,6 +67,7 @@ function handleClearBtn() {
     currVal = "0";
     clearOperator();
     clearDisplay();
+    resetDisplayVal = false;
 }
 
 function clearDisplay() {
@@ -75,7 +76,7 @@ function clearDisplay() {
 }
 
 function handleOperationBtn(operation) {
-    bClearDisplay = true;
+    resetDisplayVal = true;
     
     if (operator) {
         operate(currVal, displayVal, operator);
@@ -128,6 +129,7 @@ function handleNegateBtn() {
     displayVal = value.toString();
     updateDisplay();
     clearOperator();
+    resetDisplayVal = false;
 }
 
 function handlePercentBtn() {
@@ -140,6 +142,7 @@ function handlePercentBtn() {
     displayVal = value.toString();
     updateDisplay();
     clearOperator();
+    resetDisplayVal = false;
 }
 
 function clearOperator() {
