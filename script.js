@@ -1,5 +1,10 @@
 const buttons = document.querySelectorAll(".btn");
 const display = document.getElementsByClassName("displayValue")[0];
+const KEY_CODES = {
+    backspace: 8,
+    
+}
+
 let currVal = "0";
 let displayVal = "0";
 let operator;
@@ -8,6 +13,8 @@ let resetDisplayVal = false;
 for (let button of buttons) {
     button.addEventListener("click", (e) => handleClick(e));
 }
+
+document.addEventListener("keyup", (e) => handleKeyUp(e));
 
 function handleClick(e) {
     e.preventDefault();
@@ -192,4 +199,28 @@ function disableDecimalBtn() {
 function enableDecimalBtn() {
     const decimalBtn = document.getElementById("decimal");
     decimalBtn.classList.remove("btn--disabled");
+}
+
+function handleKeyUp(e) {
+    e.preventDefault();
+    
+    if (e.isComposing || e.keyCode === 229) {
+        return;
+    }
+
+    switch (e.keyCode) {
+        case KEY_CODES.backspace:
+            deleteChar();
+            break;
+    }
+}
+
+function deleteChar() {
+    if (displayVal.length === 1) {
+        displayVal = "0";
+    } else {
+        displayVal = displayVal.slice(0, displayVal.length - 1);
+    }
+
+    updateDisplay();
 }
