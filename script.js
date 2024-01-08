@@ -11,10 +11,6 @@ for (let button of buttons) {
 
 function handleClick(e) {
     e.preventDefault();
-    
-    // if (operator) {
-    //     toggleBtnHighlight(operator);   
-    // }
 
     switch (e.target.id) {
         case "clear":
@@ -24,7 +20,7 @@ function handleClick(e) {
             handleNegateBtn();
             break;
         case "percent":
-            console.log("percent");
+            handlePercentBtn();
             break;
         case "divide":
         case "multiply":
@@ -67,9 +63,9 @@ function updateDisplay() {
 }
 
 function handleClearBtn() {
-    // toggleBtnHighlight();
+    toggleBtnHighlight();
     currVal = "0";
-    operator = null;
+    clearOperator();
     clearDisplay();
 }
 
@@ -80,16 +76,17 @@ function clearDisplay() {
 
 function handleOperationBtn(operation) {
     bClearDisplay = true;
-    // if (operation !== "calculate") {
-    //     toggleBtnHighlight(operation);
-    // }
     
     if (operator) {
         calculate(currVal, displayVal, operator);
+        clearOperator();
     }
 
     currVal = displayVal;
-    operator = operation === "calculate" ? null : operation;
+    if (operation !== "calculate") {
+        operator = operation;
+        toggleBtnHighlight();
+    }
 }
 
 function calculate(firstVal, secondVal, operation) {
@@ -114,9 +111,11 @@ function calculate(firstVal, secondVal, operation) {
     updateDisplay();
 }
 
-function toggleBtnHighlight(operation) {
-    const operationBtn = document.getElementById(operation);
-    operationBtn.classList.toggle("btn__operator--highlight");
+function toggleBtnHighlight() {
+    if (operator) {
+        const operationBtn = document.getElementById(operator);
+        operationBtn.classList.toggle("btn__operator--highlight");
+    }
 }
 
 function handleNegateBtn() {
@@ -128,4 +127,22 @@ function handleNegateBtn() {
 
     displayVal = value.toString();
     updateDisplay();
+    clearOperator();
+}
+
+function handlePercentBtn() {
+    let value = parseFloat(displayVal) / 100;
+
+    if (value === 0) {
+        return;
+    }
+
+    displayVal = value.toString();
+    updateDisplay();
+    clearOperator();
+}
+
+function clearOperator() {
+    toggleBtnHighlight();
+    operator = null;
 }
