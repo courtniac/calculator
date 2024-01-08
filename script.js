@@ -167,6 +167,10 @@ function multiply(firstVal, secondVal) {
 }
 
 function divide(firstVal, secondVal) {
+    if (secondVal === 0) {
+        return ">:(";
+    }
+    
     return round(firstVal / secondVal);
 }
 
